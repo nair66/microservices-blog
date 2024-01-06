@@ -22,18 +22,28 @@ app.post("/events", (req, res) => {
       posts[id] = { id, title, comments: [] };
       return;
     case "CommentCreated":
-      const { postId, id: commentId, content } = data;
+      const { postId, id: commentId, content, status } = data;
       try {
         let comments = posts[postId]?.comments || [];
-        comments.push({ id: commentId, content: content });
+        comments.push({ id: commentId, content, status });
         posts[postId].comments = comments;
       } catch (e) {
         console.log("Query service creation error:", e.message);
         res.send({ status: "Error" }).status(304);
-        return;
       }
+      return;
   }
-  console.log("posts", posts);
+
+  if (type === "CommentUpdated") {
+  }
+  const { id, content, status, postId } = data;
+  let comments = posts[postId].comments;
+
+  const comment = comments.find((comment) => {
+    return comment.id === id;
+  });
+  comment.status = status;
+  comment.content = content;
   res.send({});
 });
 
