@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-bus-deployment
+spec:
+  selector:
+    matchLabels:
+      app: event-bus
+  template:
+    metadata:
+      labels:
+        app: event-bus
+    spec:
+      containers:
+        - name: event-bus
+          image: adityanair006/micro-event-bus
+          env:
+            - name: POSTS_ADDRESS
+              value: "posts-service.default"
+            - name: COMMENTS_ADDRESS
+              value: "comments-service.default"
+            - name: MODERATION_ADDRESS
+              value: "moderation-service.default"
+            - name: QUERY_ADDRESS
+              value: "query-service.default"

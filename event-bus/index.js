@@ -13,22 +13,22 @@ app.post("/events", (req, res) => {
   events.push(event);
 
   axios
-    .post("http://localhost:4000/events", event)
+    .post(`http://${process.env.POSTS_ADDRESS}:4000/events`, event)
     .catch((e) =>
       console.log("Event bus communication error: unable to emit event 4000")
     );
   axios
-    .post("http://localhost:4001/events", event)
+    .post(`http://${process.env.COMMENTS_ADDRESS}:4001/events`, event)
     .catch((e) =>
       console.log("Event bus communication error: unable to emit event 4001")
     );
   axios
-    .post("http://localhost:4002/events", event)
+    .post(`http://${process.env.QUERY_ADDRESS}:4002/events`, event)
     .catch((e) =>
       console.log("Event bus communication error: unable to emit event to 4002")
     );
   axios
-    .post("http://localhost:4003/events", event)
+    .post(`http://${process.env.MODERATION_ADDRESS}:4003/events`, event)
     .catch((e) =>
       console.log("Event bus communication error: unable to emit event to 4003")
     );

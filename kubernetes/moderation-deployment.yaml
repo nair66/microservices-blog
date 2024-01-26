@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderation-deployment
+spec:
+  selector:
+    matchLabels:
+      app: moderation
+  template:
+    metadata:
+      labels:
+        app: moderation
+    spec:
+      containers:
+        - name: moderation
+          image: adityanair006/micro-moderation
+          env:
+            - name: EVENT_BUS_ADDRESS
+              value: "event-bus-service.default"

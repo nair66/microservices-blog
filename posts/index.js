@@ -10,18 +10,18 @@ app.use(cors());
 
 const posts = {};
 
-app.get("/posts", (req, res) => {
-  res.send(posts);
-});
+// app.get("/posts", (req, res) => {
+//   res.send(posts);
+// });
 
-app.post("/posts", async (req, res) => {
+app.post("/posts/create", async (req, res) => {
   const id = randomBytes(4).toString("hex");
   const { title } = req.body;
 
   posts[id] = { id, title };
 
   try {
-    await axios.post("http://localhost:4005/events", {
+    await axios.post(`http://${process.env.EVENT_BUS_ADDRESS}:4005/events`, {
       type: "PostCreated",
       data: {
         id,

@@ -1,7 +1,5 @@
 import React from "react";
 
-//hey
-
 export default function CommentList({ comments }) {
   const renderedComments = comments.map((comment) => {
     let content = comment.content;
