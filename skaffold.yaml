@@ -1,0 +1,60 @@
+apiVersion: skaffold/v3
+kind: Config
+deploy:
+  kubectl: {}
+manifests:
+  rawYaml:
+    - ./kubernetes/*
+
+build:
+  local:
+    push: false
+  artifacts:
+    - image: adityanair006/micro-frontend
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      # sync:
+      #   manual:
+      #     - dest: .
+      #       src: "src/**/*.js"
+    - image: adityanair006/micro-posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      # sync:
+      #   manual:
+      #     - dest: .
+      #       src: "*.js"
+    - image: adityanair006/micro-event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      # sync:
+      #   manual:
+      #     - dest: .
+      #       src: "*.js"
+    - image: adityanair006/micro-query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      # sync:
+      #   manual:
+      #     - dest: .
+      #       src: "*.js"
+    - image: adityanair006/micro-comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      # sync:
+      #   manual:
+      #     - dest: .
+      #       src: "*.js"
+    - image: adityanair006/micro-moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      # sync:
+      #   manual:
+      #     - dest: .
+      #       src: "*.js"
